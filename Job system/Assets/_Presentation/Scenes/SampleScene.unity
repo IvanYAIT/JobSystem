@@ -449,6 +449,7 @@ MonoBehaviour:
   angle: 1
   radius: 1
   countObj: 100
+  delay: 3
 --- !u!4 &1875487632
 Transform:
   m_ObjectHideFlags: 0

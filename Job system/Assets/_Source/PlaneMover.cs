@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading;
 using Unity.Jobs;
 using UnityEngine;
 using UnityEngine.Jobs;
@@ -11,13 +12,16 @@ public class PlaneMover : MonoBehaviour
     [SerializeField] private float angle;
     [SerializeField] private int radius;
     [SerializeField] private int countObj;
+    [SerializeField] private int delay;
 
+    private float timer;
     private Transform[] _sceneObjects;
     private TransformAccessArray _transformsOnScene;
     private MovementJob _movementJob;
     private LogJob _logJob;
     private JobHandle _movementJobHandle;
     private JobHandle _logJobHandle;
+    
 
     void Start()
     {
@@ -38,18 +42,21 @@ public class PlaneMover : MonoBehaviour
         _movementJob = new MovementJob()
         {
             Speed = speed,
-            DeltaTime = Time.deltaTime,
-            Angel = angle,
-            Radius = radius
+            DeltaTime = Time.deltaTime
         };
 
         _logJob = new LogJob()
         {
-            Num = Random.Range(1, 101)
+            Num = Random.Range(1, 101),
+            Delay = delay,
+            DeltaTime = Time.deltaTime,
+            Timer = 0
         };
 
         _movementJobHandle = _movementJob.Schedule(_transformsOnScene);
         _logJobHandle = _logJob.Schedule(_movementJobHandle);
+
+        
     }
 
     private void LateUpdate()

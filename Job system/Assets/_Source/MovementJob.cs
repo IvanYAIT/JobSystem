@@ -4,8 +4,6 @@ using UnityEngine.Jobs;
 public struct MovementJob : IJobParallelForTransform
 {
     public float Speed;
-    public float Angel;
-    public int Radius;
     public float DeltaTime;
 
     public void Execute(int index, TransformAccess transform)
