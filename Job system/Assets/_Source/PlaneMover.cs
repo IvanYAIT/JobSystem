@@ -49,6 +49,7 @@ public class PlaneMover : MonoBehaviour
         };
 
         _movementJobHandle = _movementJob.Schedule(_transformsOnScene);
+
         _logJobHandle = _logJob.Schedule(_movementJobHandle);
     }
 
